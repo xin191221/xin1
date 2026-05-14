@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://www.yuque.com/api/docs/fzzqma9k1gngf7gv?book_id=472528\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s -o /tmp/yuque_doc.json \"https://www.yuque.com/api/docs/fzzqma9k1gngf7gv?book_id=472528\")",
+      "Read(//tmp/**)",
+      "Bash(python -c \"import py_compile; [py_compile.compile\\(f, doraise=True\\) for f in ['models.py', 'parser.py', 'cache.py', 'extractor.py', 'matcher.py', 'main.py']]; print\\('All files OK'\\)\")",
+      "Bash(set OPENAI_API_KEY=your-deepseek-api-key)",
+      "Bash(set OPENAI_BASE_URL=https://api.deepseek.com/v1)",
+      "Bash(set OPENAI_MODEL=deepseek-chat)",
+      "Bash(python -c \"from main import app; print\\('App loaded OK'\\)\")",
+      "Bash(pip list *)",
+      "Bash(where python *)",
+      "Bash(ls -d /c/Python* /c/Users/admin/AppData/Local/Programs/Python/Python*)",
+      "Read(//d/Program Files/**)",
+      "Bash(C:/Users/admin/AppData/Local/Programs/Python/Python39/python.exe *)",
+      "Bash(winget install *)",
+      "Bash(git config *)",
+      "Bash(git add *)"
+    ]
+  }
+}

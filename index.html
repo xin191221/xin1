@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 智能简历分析系统</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-container">
+  <header class="app-header">
+    <h1>AI 智能简历分析系统</h1>
+    <p class="subtitle">上传 PDF 简历，输入岗位需求，即刻获取智能解析与匹配评分</p>
+  </header>
+
+  <main class="main-content">
+    <section class="input-panel">
+      <div class="card upload-card">
+        <h2>上传简历</h2>
+        <div id="dropZone" class="drop-zone">
+          <div class="drop-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.5">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <p class="drop-text">拖拽 PDF 文件到此处</p>
+          <p class="drop-hint">或点击选择文件（最大 10MB）</p>
+          <input type="file" id="fileInput" accept=".pdf" hidden>
+          <p id="fileName" class="file-name"></p>
+        </div>
+      </div>
+
+      <div class="card job-card">
+        <h2>岗位需求 <span class="optional-tag">可选</span></h2>
+        <textarea id="jobDesc" class="job-input"
+          placeholder="请粘贴岗位描述...例如：&#10;需要 3 年以上 Python 后端开发经验，熟悉 FastAPI/Django，有数据库设计和优化经验，具备良好的团队协作能力。"></textarea>
+      </div>
+
+      <div class="card api-settings-card">
+        <h2>API 设置</h2>
+        <div class="form-group">
+          <label for="apiBaseUrl">后端 API 地址</label>
+          <input type="text" id="apiBaseUrl" placeholder="http://localhost:8000" value="http://localhost:8000">
+        </div>
+      </div>
+
+      <button id="analyzeBtn" class="btn-primary" disabled>
+        <span class="btn-text">开始分析</span>
+        <span class="btn-loading" hidden>
+          <span class="spinner"></span> 分析中...
+        </span>
+      </button>
+      <p id="errorMsg" class="error-msg" hidden></p>
+    </section>
+
+    <section id="resultPanel" class="result-panel" hidden>
+      <div class="card">
+        <div class="result-header">
+          <h2>分析结果</h2>
+          <span id="cachedBadge" class="badge" hidden>来自缓存</span>
+        </div>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="basic">基本信息</button>
+          <button class="tab" data-tab="job">求职背景</button>
+          <button class="tab" data-tab="match" id="matchTab" hidden>匹配评分</button>
+          <button class="tab" data-tab="raw">原文预览</button>
+        </div>
+
+        <div class="tab-content">
+          <div id="tabBasic" class="tab-pane active">
+            <div class="info-grid" id="basicInfoGrid"></div>
+          </div>
+          <div id="tabJob" class="tab-pane">
+            <div class="info-grid" id="jobInfoGrid"></div>
+            <div class="section" id="projectsSection">
+              <h3>项目经历</h3>
+              <ul id="projectsList" class="projects-list"></ul>
+            </div>
+          </div>
+          <div id="tabMatch" class="tab-pane">
+            <div class="score-circle-container">
+              <div class="score-circle" id="scoreCircle">
+                <span class="score-number" id="scoreNumber">0</span>
+                <span class="score-label">综合匹配</span>
+              </div>
+            </div>
+            <div class="match-details" id="matchDetails"></div>
+            <div class="section" id="matchAnalysis">
+              <h3>AI 分析</h3>
+              <p id="analysisText" class="analysis-text"></p>
+            </div>
+          </div>
+          <div id="tabRaw" class="tab-pane">
+            <pre id="rawText" class="raw-text"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
